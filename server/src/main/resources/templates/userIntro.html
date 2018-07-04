@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/userIntro.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="main">
+    <div class="userContainer">
+        <img th:src="@{/images/imgmain.PNG}"/>
+        <div class="user_searchWrap">
+            <input type="text" id="user_search" />
+            <button type="button" id="btn_search"></button>
+        </div>
+        <div class="messageBox">
+            <p>힌트를 <span id="hintCount" th:text="${number}"></span>회 사용하셨습니다.</p>
+        </div>
+    </div>
+    <div class="userHintContainer">
+    	hi
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+	
+	
+	
+    $("#btn_search").click(function(){
+    	var userSearch = $("#user_search").val();
+    	
+    	alert(userSearch);
+    });
+    
+      
+    
+    
+    
+});
+
+</script>
+</body>
+</html>

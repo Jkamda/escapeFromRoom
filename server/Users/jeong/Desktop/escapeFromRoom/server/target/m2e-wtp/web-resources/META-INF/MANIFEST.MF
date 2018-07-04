@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: jeong
+Build-Jdk: 10.0.1
+Implementation-Title: server
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.jrchild
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/app
+Created-By: Maven Integration for Eclipse
+
