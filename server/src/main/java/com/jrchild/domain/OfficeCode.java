@@ -23,8 +23,7 @@ public class OfficeCode {
 	
 	@Column(name="OFFICE_NAME")
 	private String officeName;
-	
-	@ManyToOne
-	private Member member;
+
+
 	
 }

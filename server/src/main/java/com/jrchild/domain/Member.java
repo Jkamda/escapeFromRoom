@@ -24,11 +24,19 @@ public class Member {
 	@Column(name="MEMBER_PW")
 	private String memberPw;
 	
+	@Column(name="MEMBER_ROLE")
+	private String memberRole;
+	
 	@Column(name="MEMBER_OFFICE_CODE")
 	private String memberOfficeCode;
 	
+	@Column(name="MEMBER_ROOM_CODE")
+	private String memberRoomCode;
+	
 	@Column(name="MEMBER_HINT_REMAINING")
 	private int memberHintRemaining;
+	
+	
 	
 	
 }

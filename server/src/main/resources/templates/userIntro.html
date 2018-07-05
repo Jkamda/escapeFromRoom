@@ -16,27 +16,30 @@
             <button type="button" id="btn_search"></button>
         </div>
         <div class="messageBox">
-            <p>힌트를 <span id="hintCount" th:text="${number}"></span>회 사용하셨습니다.</p>
+            <p>힌트를 <span id="hintCount">5</span>회 남았습니다.</p>
         </div>
     </div>
 </div>
 <script>
-$(document).ready(function(){
-	
-	
-	
-    $("#btn_search").click(function(){
-    	var userSearch = $("#user_search").val();
+ 
+    $(document).ready(function(){
     	
-    	alert(userSearch);
-    });
-    
-      
-    
-    
-    
-});
+        $("#btn_search").click(function(){
+            $.ajax({
+            	type : "GET",
+    			url : "/hintCount",
+    			success: function(result){
+    				console.log(result);
+    				
+    				$("#hintCount").text(result);
+    			},
+    			error: function(e){
+    				console.log("Error:" , e);
+    			}
+        	});
+        });
 
+    });
 </script>
 </body>
 </html>
