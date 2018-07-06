@@ -8,22 +8,20 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
-@Table(name="OFFICE_CODE")
-@ToString
-public class OfficeCode {
-
+@Table(name="ROOM")
+public class Room {
+	
 	@Id
-	@Column(name="OFFICE_CODE")
-	private String officeCode;
+	@Column(name="ROOM_CODE")
+	private String roomCode;
 	
-	@Column(name="OFFICE_NAME")
-	private String officeName;
-
-
+	@Column(name="ROOM_NAME")
+	private String roomName;
 	
+	@ManyToOne
+	private Office office;
 }

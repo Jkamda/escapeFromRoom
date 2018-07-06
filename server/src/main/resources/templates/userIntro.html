@@ -25,18 +25,25 @@
     $(document).ready(function(){
     	
         $("#btn_search").click(function(){
-            $.ajax({
-            	type : "GET",
-    			url : "/hintCount",
-    			success: function(result){
-    				console.log(result);
-    				
-    				$("#hintCount").text(result);
-    			},
-    			error: function(e){
-    				console.log("Error:" , e);
-    			}
-        	});
+        	
+        	if(confirm("힌트를 사용하시겠습니까?") == true){
+                $.ajax({
+                	type : "GET",
+        			url : "/hintCount",
+        			success: function(result){
+        				console.log(result);
+        				
+        				$("#hintCount").text(result);
+        			},
+        			error: function(e){
+        				console.log("Error:" , e);
+        			}
+            	});
+        	}else{
+        		return;
+        	}
+        	
+
         });
 
     });

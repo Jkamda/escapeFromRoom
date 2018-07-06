@@ -46,9 +46,5 @@ public class HintCode {
 	@Column(name="HINT_CREATOR")
 	private String hintCreator;
 	
-	@ManyToOne
-	private Member member;
-	
-	
 	
 }
