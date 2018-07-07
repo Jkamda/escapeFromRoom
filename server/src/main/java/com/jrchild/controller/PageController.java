@@ -38,10 +38,11 @@ public class PageController {
 		}
 		return "login";
 	}
+	
 	@GetMapping("/office")
 	public ModelAndView officePage(ModelAndView mv) {
 		
-		mv.setViewName("office");
+		mv.setViewName("admin/office");
 		
 		Iterable<Office> list = officeService.getOfficeListService();
 		mv.addObject("officeList", list);

@@ -1,0 +1,94 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head lang="ko" th:replace="admin/fragments/head :: head">
+
+</head>
+<body>
+	<div class="wrapper">
+		<!-- Navigation -->
+		<nav th:replace="admin/fragments/navigation :: navigation"></nav>
+
+		<div id="page-wrapper">
+			<div class="row"> <!-- row 1-->			
+				<div class="col-lg-12">
+					<h1 class="page-header">지점 관리</h1>
+				</div>
+			</div> <!-- row 1 end-->
+			<div class="row"> <!-- row 2-->
+				<form>
+					<div class="form-group">
+						<label for=officeCode>지점 코드</label> 
+						<input type="text" class="form-control" id="officeCode" placeholder="지점 코드 ">
+							
+					</div>
+					<div class="form-group">
+						<label for=officeName>지점 코드</label> 
+						<input type="text" class="form-control" id="officeName" placeholder="지점명 ">
+							
+					</div>
+					<button type="submit" id="submit" class="btn btn-primary">Submit</button>
+					
+				</form>
+			</div> <!-- row 2 end-->
+
+			<div class="row"><!-- row 3-->
+				<table class="table table-bordered">
+    				<thead>
+      					<tr>
+							<td>지점 코드</td>
+							<td>지점 이름</td>
+      					</tr>
+    				</thead>
+    				<tbody>
+      					<tr th:each="office : ${officeList}">
+							<td th:text="${office.officeCode}"></td>
+							<td th:text="${office.officeName}"></td>
+      					</tr>
+
+				    </tbody>
+  				</table>
+			</div><!-- row 3  end-->
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<div lang="ko" th:replace="admin/fragments/footer :: footer"></div>
+</body>
+
+</body>
+<script>
+	$(document).ready(function() {
+
+		$('#submit').click(function(event) {
+
+			officePost();
+
+			alert("저장되었습니다.");
+		});
+
+		function officePost() {
+
+			var data = {
+				'officeCode' : $('#officeCode').val(),
+				'officeName' : $('#officeName').val()
+			};
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json; charset=utf-8",
+				url : "/api/v1/office/register",
+				data : JSON.stringify(data),
+				success : function() {
+					console.log("success", data);
+
+				},
+				error : function(e) {
+					console.log("Error:", e);
+				}
+			});
+
+		}
+
+	});
+</script>
+</body>
+</html>
