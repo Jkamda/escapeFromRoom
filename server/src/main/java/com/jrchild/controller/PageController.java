@@ -30,7 +30,7 @@ public class PageController {
 	
 	@GetMapping("/login")
 	public String login(Model model,HttpSession session) {
-		if((boolean) session.getAttribute("isLogin")) {
+		if(session.getAttribute("isLogin") != null && (boolean) session.getAttribute("isLogin")) {
 			String[] roles = (String[]) session.getAttribute("role");
 			if(ArrayUtils.contains(roles,"admin")) {
 				return "redirect:admin";
