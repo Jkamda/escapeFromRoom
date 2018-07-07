@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+   
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="main">
+    <div class="officeContainer">
+        <input type="text" id="officeCode" name="officeCode"/>
+        <input type="text" id="officeName" name="officeName"/>
+        <button id="submit">저장</button>
+    </div>
+    
+    <table>
+    	<tr>
+    		<td> 지점 코드 </td>
+    		<td> 지점 이름</td>
+    	</tr>
+    	<tr th:each="office : ${officeList}">
+
+   			<td th:text="${office.officeCode}"></td>
+   			<td th:text="${office.officeName}"></td>
+   		</tr>
+    </table>
+</div>
+<script>
+ 
+    $(document).ready(function(){
+    	
+    	$('#submit').click(function(event){
+    		
+    		
+    		officePost();
+    		
+    		alert("저장되었습니다.");
+    	});
+    	
+    	function officePost(){
+
+    		var data={
+    			'officeCode' : $('#officeCode').val() ,
+    			'officeName' : $('#officeName').val()
+    		};
+    		
+    		$.ajax({
+            	type : "POST",
+            	contentType : "application/json; charset=utf-8",
+    			url : "/api/v1/office/register",
+    			data : JSON.stringify(data),
+    			success: function(){
+    				console.log("success", data);
+    				
+    			},
+    			error: function(e){
+    				console.log("Error:" , e);
+    			}
+        	});
+    		
+  
+    	}
+    	
+     
+
+    });
+</script>
+</body>
+</html>
