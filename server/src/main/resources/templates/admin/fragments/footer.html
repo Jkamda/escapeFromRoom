@@ -1,0 +1,36 @@
+<div th:fragment="footer">
+  <!-- //scripts includes -->
+    <!-- jQuery -->
+    <script th:src="@{/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/startbootstrap-sb-admin-2/vendor/metisMenu/metisMenu.min.js}"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script th:src="@{/startbootstrap-sb-admin-2/vendor/raphael/raphael.min.js}"></script>
+    <script th:src="@{/startbootstrap-sb-admin-2/vendor/morrisjs/morris.min.js}"></script>
+    <script th:src="@{/startbootstrap-sb-admin-2/data/morris-data.js}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js}"></script>
+    
+    <script type="text/javascript">
+    var _ctx = $("meta[name='_ctx']").attr("content");
+    if(typeof _ctx == 'undefined' || _ctx == null) _ctx = '';
+    function logout() {
+    	$.ajax({
+    		url : _ctx + 'member/logout',
+    		type: "GET",
+    		success : function(res) {
+    			if(res.status == true){
+    				alert('로그아웃 되었습니다.');
+    				location.reload();
+    			}
+    		}
+    	});
+    }
+    </script>
+</div>

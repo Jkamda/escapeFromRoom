@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+<title>엑소더스 로그인</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<style type="text/css">
+	.login-form {
+		width: 340px;
+    	margin: 50px auto;
+	}
+    .login-form form {
+    	margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+    .btn {        
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<!-- https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-form -->
+<div class="login-form">
+    <form method="post">
+        <h2 class="text-center">Log in</h2>       
+        <div class="form-group">
+            <input id="user_id" type="text" class="form-control" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <input id="user_password" type="password" class="form-control" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+var _ctx = $("meta[name='_ctx']").attr("content");
+if(typeof _ctx == 'undefined' || _ctx == null) _ctx = '';
+$(function() {
+	$('form').on('submit',function(){
+		var user_id = $('#user_id').val();
+		var user_password = $('#user_password').val();
+		send_server(user_id,user_password);
+		return false;
+	});
+	
+});
+function send_server(user_id,user_password) {
+	var ajaxData = {
+			'user_id' : user_id,
+			'user_password' : user_password
+	}
+	$.ajax({
+		url : _ctx + 'member/login',
+		type: "POST",
+		data : JSON.stringify(ajaxData),
+		contentType:"application/json; charset=UTF-8",
+		dataType : 'json',
+		type: "POST",
+		success : function(res) {
+			if(res.status == true){
+				alert('로그인에 성공했습니다.');
+				location.reload();
+			}
+		}
+	});
+}
+</script>
+
+
+</body>
+</html>                                		                            
