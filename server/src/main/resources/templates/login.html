@@ -78,6 +78,9 @@ function send_server(user_id,user_password) {
 				alert('로그인에 성공했습니다.');
 				location.reload();
 			}
+		},
+		error:function(request,status,error){
+			alert('로그인 에러');
 		}
 	});
 }

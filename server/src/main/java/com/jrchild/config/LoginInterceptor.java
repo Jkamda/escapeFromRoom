@@ -1,5 +1,7 @@
 package com.jrchild.config;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,10 +20,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 							 HttpServletResponse response,
 							 Object handler) {
 		HttpSession session = request.getSession();
+		
 		if(session.getAttribute("isLogin") != null && (boolean) session.getAttribute("isLogin") == true) {
 			return true;
 		}else {
-			
+			try {
+				response.sendRedirect(request.getContextPath() + "login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return false;
 		}
 		
