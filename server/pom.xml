@@ -24,7 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<!-- true : 테스트 생략 -->
-		<skipTests>true</skipTests>
+		<skipTests>true</skipTests>   
 	</properties>
 
 	<dependencies>
