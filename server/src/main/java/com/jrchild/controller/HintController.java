@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jrchild.domain.HintCode;
+import com.jrchild.domain.Hint;
 import com.jrchild.service.HintService;
 
 @RestController
@@ -42,7 +42,7 @@ public class HintController {
 	}
 	
 	@GetMapping(value="/api/v1/hints")
-	public List<HintCode> hintList(){
+	public List<Hint> hintList(){
 		return hintService.getHintListService();
 	}
 }
