@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jrchild.domain.Hint;
 import com.jrchild.domain.Office;
 import com.jrchild.domain.Room;
 import com.jrchild.service.OfficeService;
@@ -71,5 +72,12 @@ public class PageController {
 		return mv;
 
 	}
+	
+	@GetMapping("/hint")
+	public ModelAndView hintPage(ModelAndView mv) {
+		mv.setViewName("admin/hint");
+		return mv;
+	}
+	
 	
 }

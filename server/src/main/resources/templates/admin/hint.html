@@ -1,0 +1,100 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head lang="ko" th:replace="admin/fragments/head :: head"> 
+	<!-- je.kim -->
+	</head>
+	<body>
+  		<div class="wrapper">
+  			<!-- Navigation -->
+        	<nav th:replace="admin/fragments/navigation :: navigation" ></nav>
+  			 			
+  			<div id="page-wrapper">
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header">힌트관리</h1>
+	                </div>
+	            </div>
+	            
+	            <div class="table-responsive-xl" style="margin-bottom: 20px; height: 409px; border: 1px solid #ddd;"><!-- row 3-->
+					<table id="hintList" class="table table-bordered table-hover" style="margin-bottom: 0px;">
+	    				<thead>
+	      					<tr>
+								<th>힌트코드</th>
+								<th>지점</th>
+								<th>룸</th>
+								<th>생성일자</th>
+	      					</tr>
+	    				</thead>
+	    				<tbody>
+							
+					    </tbody>
+	  				</table>
+				</div><!-- row 3  end-->
+				<div class="row">
+					<div class="col-md-4">
+						<button type="button" class="btn btn-default">생성</button>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group input-group">
+							<span class="input-group-btn" style="width: 20%;">
+								<select class="form-control">
+                                	<option>힌트코드</option>
+                                	<option>지점</option>
+                                </select>
+                            </span>
+							<input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="">
+							<span class="input-group-btn">
+                            	<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+						</div>
+					</div>
+					<div class="col-md-4">
+					
+					</div>
+				</div>
+	        </div>
+	        <!-- /#page-wrapper -->
+  		</div>
+		<div lang="en" th:replace="admin/fragments/footer :: footer"> </div>
+		<script type="text/javascript">
+			$(function () {
+				getList({},gridTable);
+			});
+			function getList(data,callback) {
+				$.ajax({
+					type : "GET",
+					url : "/api/v1/hints",
+					//data : JSON.stringify(data),
+					success : function(result) {
+						callback(result);
+					},
+					error : function(e) {
+						console.log("Error:", e);
+					}
+				});
+			}
+			function gridTable(data) {
+				var source   = document.getElementById("entry-template").innerHTML;
+				var template = Handlebars.compile(source);
+				var target = "#hintList";
+				$(target+' tbody').html(template(data));
+				listener();
+			}
+			
+			function listener() {
+				
+			}
+		</script>
+		<script id="entry-template" type="text/x-handlebars-template">
+			{{#each this}}
+  			<tr data-hintCode="{{hintCode}}" style="cursor: pointer;">
+				<td>{{hintCode}}</td>
+				<td>{{hintOfficeCode}}</td>
+				<td>{{hintRoomCode}}</td>
+				<td>{{hintCreateTimestamp}}</td>
+			</tr>
+  			
+			{{/each}}
+		</script>
+	</body>
+</html>
