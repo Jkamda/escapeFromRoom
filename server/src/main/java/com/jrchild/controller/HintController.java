@@ -1,15 +1,25 @@
 package com.jrchild.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jrchild.domain.HintCode;
+import com.jrchild.service.HintService;
+
 @RestController
 public class HintController {
 
+	
+	@Autowired
+	private HintService hintService;
+	
 	
 	@GetMapping(value="/hintCount")
 	public Object hintCount(@CookieValue(value = "hintCount", defaultValue = "5") Long hintCount, HttpServletResponse response) {
@@ -30,5 +40,9 @@ public class HintController {
 		
 		return hintCount;
 	}
-
+	
+	@GetMapping(value="/api/v1/hints")
+	public List<HintCode> hintList(){
+		return hintService.getHintListService();
+	}
 }
