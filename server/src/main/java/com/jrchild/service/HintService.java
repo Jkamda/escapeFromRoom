@@ -15,20 +15,15 @@ public class HintService {
 	@Autowired
 	HintRepository hintRepository;
 	
-	
-	public void registerHintService(Hint hint) {
-		
-		hintRepository.save(hint);
-	}
-	
 	public List<Hint> getHintListService() {
 		List<Hint> list = new ArrayList<>();
 		Iterable<Hint> hints = hintRepository.findAll();
 		hints.forEach(list::add);
 		return list;
 	}
-
-	public boolean registerHintServise(Hint hint) {
+	
+	// je.kim
+	public boolean registerHintService(Hint hint) {
 		hintRepository.save(hint);
 		return true;
 	}

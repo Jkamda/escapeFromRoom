@@ -53,7 +53,7 @@ public class HintController {
 	@PostMapping(value="/api/v1/hints/register")
 	public Map<String, Object> registerHint(@RequestBody Hint hint){
 		Map<String, Object> result = new HashMap<>();
-		result.put("status", hintService.registerHintServise(hint));
+		result.put("status", hintService.registerHintService(hint));
 		return result;
 	}
 }
