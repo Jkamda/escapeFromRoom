@@ -27,4 +27,9 @@ public class HintService {
 		hints.forEach(list::add);
 		return list;
 	}
+
+	public boolean registerHintServise(Hint hint) {
+		hintRepository.save(hint);
+		return true;
+	}
 }

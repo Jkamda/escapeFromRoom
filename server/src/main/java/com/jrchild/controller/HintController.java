@@ -1,6 +1,8 @@
 package com.jrchild.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jrchild.domain.Hint;
@@ -44,5 +48,12 @@ public class HintController {
 	@GetMapping(value="/api/v1/hints")
 	public List<Hint> hintList(){
 		return hintService.getHintListService();
+	}
+	
+	@PostMapping(value="/api/v1/hints/register")
+	public Map<String, Object> registerHint(@RequestBody Hint hint){
+		Map<String, Object> result = new HashMap<>();
+		result.put("status", hintService.registerHintServise(hint));
+		return result;
 	}
 }
