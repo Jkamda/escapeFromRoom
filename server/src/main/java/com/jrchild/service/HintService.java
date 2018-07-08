@@ -16,23 +16,22 @@ public class HintService {
 	@Autowired
 	HintRepository hintRepository;
 	
-	
-	public void registerHintService(Hint hint) {
-		
-		hintRepository.save(hint);
-	}
-	
 	public List<Hint> getHintListService() {
 		List<Hint> list = new ArrayList<>();
 		Iterable<Hint> hints = hintRepository.findAll();
 		hints.forEach(list::add);
 		return list;
 	}
-	
+
 	public Optional<Hint> getHintResult(String hintCode) {
 		Optional<Hint> list = hintRepository.findById(hintCode);
 
 		return list;
 	}
-	
+
+	// je.kim
+	public boolean registerHintService(Hint hint) {
+		hintRepository.save(hint);
+		return true;
+	}
 }
