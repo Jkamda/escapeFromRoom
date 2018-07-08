@@ -26,25 +26,52 @@
     	
         $("#btn_search").click(function(){
         	
+        	var userSearch=$('#user_search').val();
+        	
         	if(confirm("힌트를 사용하시겠습니까?") == true){
-                $.ajax({
-                	type : "GET",
-        			url : "/hintCount",
-        			success: function(result){
-        				console.log(result);
-        				
-        				$("#hintCount").text(result);
-        			},
-        			error: function(e){
-        				console.log("Error:" , e);
-        			}
-            	});
+        		
+        		getHintResult(userSearch);
+        		
+        		getHintCount();
         	}else{
         		return;
         	}
         	
 
         });
+        
+        
+        function getHintResult(hintCode) {
+        	console.log(hintCode);        	
+    		$.ajax({
+    			type : "GET",
+    			url : "/api/v1/hints/" + hintCode,
+    			success : function(data) {
+	    			console.log("success", data);
+	    			alert("힌트 : " + data.hintExplainText);
+   				},
+    			error : function(e) {
+    				console.log("Error:", e);
+    			}
+    		});
+
+        }
+        
+        function getHintCount(){
+        	$.ajax({
+            	type : "GET",
+    			url : "/hintCount",
+    			success: function(result){
+    				console.log(result);
+    				
+    				$("#hintCount").text(result);
+    			},
+    			error: function(e){
+    				console.log("Error:" , e);
+    			}
+        	});
+        }
+        
 
     });
 </script>
