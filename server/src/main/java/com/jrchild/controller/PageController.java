@@ -1,5 +1,7 @@
 package com.jrchild.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jrchild.domain.Office;
+import com.jrchild.domain.Room;
 import com.jrchild.service.OfficeService;
+import com.jrchild.service.RoomService;
 
 @Controller
 public class PageController {
@@ -18,6 +22,9 @@ public class PageController {
 	
 	@Autowired
 	OfficeService officeService;
+	
+	@Autowired
+	RoomService roomService;
 	
 	@GetMapping("/userIntro")
 	public String sample(Model model) {
@@ -46,6 +53,20 @@ public class PageController {
 		
 		Iterable<Office> list = officeService.getOfficeListService();
 		mv.addObject("officeList", list);
+		
+		return mv;
+
+	}
+	
+	@GetMapping("/room")
+	public ModelAndView roomPage(ModelAndView mv) {
+		
+		mv.setViewName("admin/room");
+		
+		Iterable<Office> list2 = officeService.getOfficeListService();
+		mv.addObject("officeList", list2);
+		Iterable<Room> list = roomService.getRoomListService();
+		mv.addObject("roomList", list);
 		
 		return mv;
 

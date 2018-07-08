@@ -28,7 +28,7 @@ public class OfficeAndRoomTests {
 	@Autowired
 	RoomRepository roomRepository;
 
-	@Test
+	//@Test
 	public void InsertOfficeCode() {
 		
 		Office office1=new Office();
@@ -46,7 +46,7 @@ public class OfficeAndRoomTests {
 	}
 	
 	
-	@Test
+	//@Test
 	public void InsertRoomCode() {
 		
 		Office office=new Office();
@@ -72,6 +72,11 @@ public class OfficeAndRoomTests {
 
 	}
 	
+	@Test
+	public void test() {
+		System.out.println(officeRepository.getSelectOfficeCode());
+		
+	}
 	
 	
 }

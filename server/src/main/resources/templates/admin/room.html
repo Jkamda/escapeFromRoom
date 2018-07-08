@@ -11,21 +11,30 @@
 		<div id="page-wrapper">
 			<div class="row"> <!-- row 1-->			
 				<div class="col-lg-12">
-					<h1 class="page-header">지점 관리</h1>
+					<h1 class="page-header">룸 관리</h1>
 				</div>
 			</div> <!-- row 1 end-->
 			<div class="row"> <!-- row 2-->
 				<form>
 					<div class="form-group">
-						<label for=officeCode>지점 코드</label> 
-						<input type="text" class="form-control" id="officeCode" placeholder="지점 코드 ">
+						<label for=officeCode>지점명</label> 
+						<select class="form-control" id="officeCode">
+  							<option th:each="office : ${officeList}" th:value="${office.officeCode}" th:text="${office.officeName}">
+  								
+  							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for=roomCode>룸 코드</label> 
+						<input type="text" class="form-control" id="roomCode" placeholder="룸 코드">
 							
 					</div>
 					<div class="form-group">
-						<label for=officeName>지점명</label> 
-						<input type="text" class="form-control" id="officeName" placeholder="지점명 ">
+						<label for=roomName>룸명</label> 
+						<input type="text" class="form-control" id="roomName" placeholder="룸명">
 							
 					</div>
+
 					<button type="submit" id="submit" class="btn btn-primary">Submit</button>
 					
 				</form>
@@ -35,14 +44,14 @@
 				<table class="table table-bordered">
     				<thead>
       					<tr>
-							<td>지점 코드</td>
-							<td>지점 이름</td>
+							<td>룸 코드</td>
+							<td>룸 이름</td>
       					</tr>
     				</thead>
     				<tbody>
-      					<tr th:each="office : ${officeList}">
-							<td th:text="${office.officeCode}"></td>
-							<td th:text="${office.officeName}"></td>
+      					<tr th:each="room : ${roomList}">
+							<td th:text="${room.roomCode}"></td>
+							<td th:text="${room.roomName}"></td>
       					</tr>
 
 				    </tbody>
@@ -59,25 +68,26 @@
 	$(document).ready(function() {
 
 		$('#submit').click(function(event) {
-
-			officePost();
-
+			
+			roomPost();
+		
 			alert("저장되었습니다.");
 		});
-
-		function officePost() {
+		
+		function roomPost() {
 
 			var data = {
-				'officeCode' : $('#officeCode').val(),
-				'officeName' : $('#officeName').val()
-			};
-
+					'officeCode': $('#officeCode').val(),
+					'roomCode' : $('#roomCode').val(),
+					'roomName' : $('#roomName').val()
+				};
+			console.log(data);
 			$.ajax({
 				type : "POST",
 				contentType : "application/json; charset=utf-8",
-				url : "/api/v1/office/register",
+				url : "/api/v1/room/register",
 				data : JSON.stringify(data),
-				success : function() {
+				success : function(data) {
 					console.log("success", data);
 
 				},
@@ -86,6 +96,21 @@
 				}
 			});
 
+		}
+		
+		function officeSelect() {
+			$.ajax({
+				type : "GET",
+				url : "/api/v1/office/select",
+				success : function(data) {
+					console.log("success", data);
+
+				},
+				error : function(e) {
+					console.log("Error:", e);
+				}
+			});
+			
 		}
 
 	});

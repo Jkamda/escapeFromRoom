@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -16,9 +15,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name="HINT_CODE")
+@Table(name="HINT")
 @ToString
-public class HintCode {
+public class Hint {
 
 	@Id
 	@Column(name="HINT_CODE")

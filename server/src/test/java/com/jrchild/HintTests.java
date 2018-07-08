@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.jrchild.domain.HintCode;
-import com.jrchild.persistence.HintCodeRepository;
+import com.jrchild.domain.Hint;
+import com.jrchild.persistence.HintRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -15,13 +15,13 @@ public class HintTests {
 
 	
 	@Autowired
-	HintCodeRepository hintCodeRepository;
+	HintRepository hintCodeRepository;
 	
 	@Test
 	public void InsertDummyHintCode() {
 
 		for(int i=1; i<=100; i++) {
-			HintCode hintCode=new HintCode();
+			Hint hintCode=new Hint();
 			String codeNum = String.format("%04d", i); 
 			hintCode.setHintCode("H"+codeNum);
 			String currentDate   = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new java.util.Date());

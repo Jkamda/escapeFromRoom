@@ -13,18 +13,22 @@ import com.jrchild.persistence.OfficeRepository;
 public class OfficeService {
 
 	@Autowired
-	OfficeRepository OfficeRepository;
+	OfficeRepository officeRepository;
 	
 	
 	public void registerOfficeService(Office office) {
 		
-		OfficeRepository.save(office);
+		officeRepository.save(office);
 	}
 	
 	public List<Office> getOfficeListService() {
 		List<Office> list = new ArrayList<>();
-		Iterable<Office> offices = OfficeRepository.findAll();
+		Iterable<Office> offices = officeRepository.findAll();
 		offices.forEach(list::add);
 		return list;
+	}
+	
+	public List<Object[]> getSelectOfficeCode(){
+		return officeRepository.getSelectOfficeCode();
 	}
 }
