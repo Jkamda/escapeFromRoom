@@ -1,12 +1,15 @@
 package com.jrchild.domain;
 
-import java.sql.Blob;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,13 +31,15 @@ public class Hint {
 	
 	@Lob
 	@Column(name="HINT_EXPLAIN_IMG")
-	private Blob hintExplainImg;
+	private String hintExplainImg;
 	
 	@Column(name="HINT_CREATE_TIMESTAMP")
-	private String hintCreateTimestamp;
+	@CreationTimestamp
+	private Timestamp hintCreateTimestamp;
 	
 	@Column(name="HINT_UPDATE_TIMESTAMP")
-	private String hintUpdateTimestamp;
+	@UpdateTimestamp
+	private Timestamp hintUpdateTimestamp;
 	
 	@Column(name="HINT_OFFICE_CODE")
 	private String hintOfficeCode;

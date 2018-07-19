@@ -17,6 +17,10 @@
 	            <div class="row"> <!-- 수정해야함-->
 					<form>
 						<div class="form-group">
+							<label for=hintCode>힌트코드</label> 
+							<input type="text" class="form-control" id="hintCode" placeholder="힌트 코드명">
+						</div>
+						<div class="form-group">
 							<label for=officeCode>지점명</label> 
 							<select class="form-control" id="officeCode">
   							<option class="officeOption" th:each="office : ${officeList}" th:value="${office.officeCode}" th:text="${office.officeName}">
@@ -33,8 +37,14 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for=roomName>룸명</label> 
-							<input type="text" class="form-control" id="roomName" placeholder="룸명">
+							<label for=hintExplainText>힌트 설명 (텍스트)</label> 
+							<input type="text" class="form-control" id="hintExplainText" placeholder="힌트 설명 (텍스트)">
+						</div>
+						<div class="form-group">
+							<label for=hintExplainImg>힌트 설명 (이미지)</label> 
+							<input type="file" class="form-control" id="hintExplainImg" placeholder="힌트 설명 (텍스트)">
+							<p id="b64" style="display:none"></p>
+							<img id="img"  width="250" height="250" style="display:none">
 						</div>
 						<button type="submit" id="submit" class="btn btn-primary">Submit</button>
 					
@@ -107,6 +117,8 @@
 		<div lang="en" th:replace="admin/fragments/footer :: footer"> </div>
 		<script type="text/javascript">
 			$(function () {
+				
+				document.getElementById("hintExplainImg").addEventListener("change", readFile);
 				getList({},function(){
 					
 				},gridTable);
@@ -119,11 +131,55 @@
 				
 				$('#submit').click(function(event) {
 				
-					
+					hintPost();
 					alert("수정 중... 저장되지 않았습니다.");
 				});
 
 			});
+			function readFile() {
+				  
+				  if (this.files && this.files[0]) {
+				    
+				    var FR= new FileReader();
+				    
+				    FR.addEventListener("load", function(e) {
+				      document.getElementById("img").src = e.target.result;
+				      document.getElementById("b64").innerHTML = e.target.result;
+				    }); 
+				    $("img").css('display','block');
+				    FR.readAsDataURL( this.files[0] );
+				  }
+				  
+				}
+			function hintPost() {
+				var b64=$('#b64').text();
+				var hintExplainImg =  b64.split(",");
+				
+				
+				var data = {
+						'hintCode': $('#hintCode').val(),
+						'officeCode': $('#officeCode').val(),
+						'roomCode' : $('#roomCode').val(),
+						'hintExplainText': $('#hintExplainText').val(),
+						'hintExplainImg': hintExplainImg[1]
+						
+					};
+				console.log(data);
+				$.ajax({
+					type : "POST",
+					contentType : "application/json; charset=utf-8",
+					url : "/api/v1/hint/register",
+					data : JSON.stringify(data),
+					success : function(data) {
+						console.log("success", data);
+
+					},
+					error : function(e) { 
+						console.log("Error :", e);
+					}
+				});
+
+			}
 			
 			function roomSelect(officeCode){
 				$.ajax({
@@ -144,20 +200,7 @@
 					}
 				});				
 			}
-			function officeSelect() {
-				$.ajax({
-					type : "GET",
-					url : "/api/v1/office/select",
-					success : function(data) {
-						console.log("success", data);
-	
-					},
-					error : function(e) {
-						console.log("Error:", e);
-					}
-				});
-				
-			}
+			
 			
 			function getList(data, beforeCallback ,callback) {
 				$.ajax({
