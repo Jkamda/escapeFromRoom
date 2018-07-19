@@ -23,8 +23,14 @@ public class RoomService {
 	
 	public List<Room> getRoomListService() {
 		List<Room> list = new ArrayList<>();
-		Iterable<Room> rooms = roomRepository.findAll();
-		rooms.forEach(list::add);
+		list = (List<Room>) roomRepository.findAll();
+		return list;
+	}
+	
+	public List<Room> findByOfficeCode(String officeCode) {
+		List<Room> list = new ArrayList<>();
+		list = (List<Room>)roomRepository.findRoomByOfficeOfficeCode(officeCode);
+		
 		return list;
 	}
 }

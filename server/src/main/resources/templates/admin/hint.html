@@ -14,7 +14,32 @@
 	                    <h1 class="page-header">힌트관리</h1>
 	                </div>
 	            </div>
-	            
+	            <div class="row"> <!-- 수정해야함-->
+					<form>
+						<div class="form-group">
+							<label for=officeCode>지점명</label> 
+							<select class="form-control" id="officeCode">
+  							<option class="officeOption" th:each="office : ${officeList}" th:value="${office.officeCode}" th:text="${office.officeName}">
+  								
+  							</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for=roomCode>룸 코드</label> 
+							<select class="form-control" id="roomCode" >
+  							<option class="roomOption" th:each="room : ${roomList}" th:value="${room.roomCode}" th:text="${room.roomName}">
+  								
+  							</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for=roomName>룸명</label> 
+							<input type="text" class="form-control" id="roomName" placeholder="룸명">
+						</div>
+						<button type="submit" id="submit" class="btn btn-primary">Submit</button>
+					
+					</form>
+				</div> <!-- row 2 end-->
 	            <div class="table-responsive-xl" style="margin-bottom: 20px; height: 409px; border: 1px solid #ddd;"><!-- row 3-->
 					<table id="hintList" class="table table-bordered table-hover" style="margin-bottom: 0px;">
 	    				<thead>
@@ -85,7 +110,55 @@
 				getList({},function(){
 					
 				},gridTable);
+				
+				$("#officeCode").change(function(e){
+					var officeCode=this.value;
+					roomSelect(officeCode);
+					
+				});
+				
+				$('#submit').click(function(event) {
+				
+					
+					alert("수정 중... 저장되지 않았습니다.");
+				});
+
 			});
+			
+			function roomSelect(officeCode){
+				$.ajax({
+					type : "GET",
+					url : "/api/v1/room/"+officeCode,
+					success : function(datas) {
+						console.log("success", datas);
+					    $('#roomCode').empty();
+						$.each(datas, function (i, data) {
+						    $('#roomCode').append($('<option>', { 
+						        value: data.roomCode,
+						        text : data.roomName
+						    }));
+						});
+					},
+					error : function(e) {
+						console.log("Error:", e);
+					}
+				});				
+			}
+			function officeSelect() {
+				$.ajax({
+					type : "GET",
+					url : "/api/v1/office/select",
+					success : function(data) {
+						console.log("success", data);
+	
+					},
+					error : function(e) {
+						console.log("Error:", e);
+					}
+				});
+				
+			}
+			
 			function getList(data, beforeCallback ,callback) {
 				$.ajax({
 					type : "GET",
@@ -111,6 +184,7 @@
 				$(target+' tbody').html(template(data));
 				listener();
 			}
+			
 			
 			function listener() {
 				

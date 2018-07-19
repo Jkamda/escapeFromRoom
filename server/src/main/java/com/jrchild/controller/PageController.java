@@ -76,6 +76,12 @@ public class PageController {
 	@GetMapping("/hint")
 	public ModelAndView hintPage(ModelAndView mv) {
 		mv.setViewName("admin/hint");
+		
+		List<Office> list2 = officeService.getOfficeListService();
+		mv.addObject("officeList", list2);
+		String officeCode=list2.get(0).getOfficeCode();
+		List<Room> roomList = roomService.findByOfficeCode(officeCode);
+		mv.addObject("roomList", roomList);
 		return mv;
 	}
 	
