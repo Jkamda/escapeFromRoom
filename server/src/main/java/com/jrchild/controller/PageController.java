@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jrchild.domain.Hint;
 import com.jrchild.domain.Office;
 import com.jrchild.domain.Room;
+import com.jrchild.service.HintService;
 import com.jrchild.service.OfficeService;
 import com.jrchild.service.RoomService;
 
@@ -26,6 +27,9 @@ public class PageController {
 	
 	@Autowired
 	RoomService roomService;
+	
+	@Autowired
+	HintService hintService;
 	
 	@GetMapping("/userIntro")
 	public String sample(Model model) {
@@ -82,6 +86,9 @@ public class PageController {
 		String officeCode=list2.get(0).getOfficeCode();
 		List<Room> roomList = roomService.findByOfficeCode(officeCode);
 		mv.addObject("roomList", roomList);
+		
+		List<Hint> hintList = hintService.getHintListService();
+		mv.addObject("hintList", hintList);
 		return mv;
 	}
 	
